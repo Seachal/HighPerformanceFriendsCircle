@@ -2,10 +2,6 @@ package com.kcrason.highperformancefriendscircle.widgets;
 
 import android.content.Context;
 import android.graphics.Color;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -15,6 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import com.kcrason.highperformancefriendscircle.R;
 import com.kcrason.highperformancefriendscircle.beans.emoji.EmojiIndicatorInfo;
 import com.kcrason.highperformancefriendscircle.beans.emoji.EmojiPanelBean;
@@ -22,6 +23,10 @@ import com.kcrason.highperformancefriendscircle.utils.Utils;
 
 import java.util.List;
 
+
+/**
+ *  微信表情  水平滑动的 viewpager 的指示器
+ */
 public class HorizontalEmojiIndicators extends LinearLayout implements ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;

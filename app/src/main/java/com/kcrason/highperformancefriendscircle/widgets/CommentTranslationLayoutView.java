@@ -1,7 +1,6 @@
 package com.kcrason.highperformancefriendscircle.widgets;
 
 import android.content.Context;
-import androidx.annotation.Nullable;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -10,12 +9,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.kcrason.highperformancefriendscircle.R;
-import com.kcrason.highperformancefriendscircle.utils.Utils;
 import com.kcrason.highperformancefriendscircle.enums.TranslationState;
 import com.kcrason.highperformancefriendscircle.interfaces.OnItemClickPopupMenuListener;
 import com.kcrason.highperformancefriendscircle.span.TextMovementMethod;
+import com.kcrason.highperformancefriendscircle.utils.Utils;
 
+
+/**
+ *  sca:翻译布局， 一个LinearLayout  嵌套 LinearLayout，怎样减少布局嵌套。
+ */
 public class CommentTranslationLayoutView extends LinearLayout implements View.OnLongClickListener {
 
     private TextView mTxtSourceContent;
