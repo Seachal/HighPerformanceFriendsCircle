@@ -2,8 +2,6 @@ package com.kcrason.highperformancefriendscircle.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +10,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.kcrason.highperformancefriendscircle.Constants;
+import com.kcrason.highperformancefriendscircle.R;
+import com.kcrason.highperformancefriendscircle.beans.FriendCircleBean;
+import com.kcrason.highperformancefriendscircle.beans.OtherInfoBean;
+import com.kcrason.highperformancefriendscircle.beans.UserBean;
 import com.kcrason.highperformancefriendscircle.enums.TranslationState;
 import com.kcrason.highperformancefriendscircle.interfaces.OnItemClickPopupMenuListener;
 import com.kcrason.highperformancefriendscircle.interfaces.OnPraiseOrCommentClickListener;
@@ -24,13 +30,11 @@ import com.kcrason.highperformancefriendscircle.utils.TimerUtils;
 import com.kcrason.highperformancefriendscircle.utils.Utils;
 import com.kcrason.highperformancefriendscircle.widgets.CommentOrPraisePopupWindow;
 import com.kcrason.highperformancefriendscircle.widgets.NineGridView;
-import com.kcrason.highperformancefriendscircle.R;
-import com.kcrason.highperformancefriendscircle.beans.FriendCircleBean;
-import com.kcrason.highperformancefriendscircle.beans.OtherInfoBean;
-import com.kcrason.highperformancefriendscircle.beans.UserBean;
 import com.kcrason.highperformancefriendscircle.widgets.VerticalCommentWidget;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import ch.ielse.view.imagewatcher.ImageWatcher;
 
 /**
@@ -96,7 +100,9 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         if (viewType == Constants.FriendCircleType.FRIEND_CIRCLE_TYPE_ONLY_WORD) {
             return new OnlyWordViewHolder(mLayoutInflater.inflate(R.layout.item_recycler_firend_circle_only_word, parent, false));
         } else if (viewType == Constants.FriendCircleType.FRIEND_CIRCLE_TYPE_WORD_AND_URL) {
-            return new WordAndUrlViewHolder(mLayoutInflater.inflate(R.layout.item_recycler_firend_circle_word_and_url, parent, false));
+
+//            return new WordAndUrlViewHolder(mLayoutInflater.inflate(R.layout.item_recycler_firend_circle_word_and_url, parent, false));
+            return new WordAndUrlViewHolder2(mLayoutInflater.inflate(R.layout.item_recycler_firend_circle_word_and_url, parent, false),mContext);
         } else if (viewType == Constants.FriendCircleType.FRIEND_CIRCLE_TYPE_WORD_AND_IMAGES) {
             return new WordAndImagesViewHolder(mLayoutInflater.inflate(R.layout.item_recycler_firend_circle_word_and_images, parent, false));
         }
@@ -110,9 +116,10 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
             makeUserBaseData(holder, friendCircleBean, position);
             if (holder instanceof OnlyWordViewHolder) {
                 OnlyWordViewHolder onlyWordViewHolder = (OnlyWordViewHolder) holder;
-            } else if (holder instanceof WordAndUrlViewHolder) {
-                WordAndUrlViewHolder wordAndUrlViewHolder = (WordAndUrlViewHolder) holder;
-                wordAndUrlViewHolder.layoutUrl.setOnClickListener(v -> Toast.makeText(mContext, "You Click Layout Url", Toast.LENGTH_SHORT).show());
+            } else if (holder instanceof WordAndUrlViewHolder2) {
+                WordAndUrlViewHolder2 wordAndUrlViewHolder = (WordAndUrlViewHolder2) holder;
+//                sca: 点击事件的监听，可以提到 viewholoder 中区执行
+//                wordAndUrlViewHolder.layoutUrl.setOnClickListener(v -> Toast.makeText(mContext, "You Click Layout Url", Toast.LENGTH_SHORT).show());
             } else if (holder instanceof WordAndImagesViewHolder) {
                 WordAndImagesViewHolder wordAndImagesViewHolder = (WordAndImagesViewHolder) holder;
                 wordAndImagesViewHolder.nineGridView.setOnImageClickListener((position1, view) ->
@@ -330,7 +337,27 @@ public class FriendCircleAdapter extends RecyclerView.Adapter<FriendCircleAdapte
         public WordAndUrlViewHolder(View itemView) {
             super(itemView);
             layoutUrl = itemView.findViewById(R.id.layout_url);
+
+
         }
+    }
+
+    static class WordAndUrlViewHolder2 extends BaseFriendCircleViewHolder {
+
+        LinearLayout layoutUrl;
+        Context mContext ;
+
+        public WordAndUrlViewHolder2(View itemView, Context context) {
+            super(itemView);
+            mContext = context;
+            layoutUrl = itemView.findViewById(R.id.layout_url);
+            layoutUrl.setOnClickListener(view -> {
+                Toast.makeText(mContext, "You Click Layout Url", Toast.LENGTH_SHORT).show();
+            });
+        }
+
+
+
     }
 
     static class OnlyWordViewHolder extends BaseFriendCircleViewHolder {
